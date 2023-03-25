@@ -10,20 +10,21 @@
 Imagine that you have engineered a prediction model using Matlab (Python or R) and would like to use it in an iOS application. If that's the case, `MLPNeuralNet` is exactly what you need. `MLPNeuralNet` is designed to load and run models in [forward propagation](http://en.wikipedia.org/wiki/Backpropagation#Phase_1:_Propagation) mode only.
 
 ###Features
+
 - [Classification](http://en.wikipedia.org/wiki/Binary_classification), [Multi-class classification](http://en.wikipedia.org/wiki/Multiclass_classification) and regression output
 - Vectorised implementation
 - Works with double precision
 - Multiple hidden layers or none (in that case it's same as logistic/linear regression)
 
 ##Quick Example
-Let's deploy a model for the AND function  ([conjunction](http://en.wikipedia.org/wiki/Logical_conjunction)) that works as follows: (of course, you do not need to use a neural network for this in the real world)
+Let's deploy a model for the AND function ([conjunction](http://en.wikipedia.org/wiki/Logical_conjunction)) that works as follows: (of course, you do not need to use a neural network for this in the real world)
 
-|X1 |X2 | Y |
-|:-:|:-:|:-:|
-| 0 | 0 | 0 |
-| 1 | 0 | 0 |
-| 0 | 1 | 0 |
-| 1 | 1 | 1 |
+| X1  | X2  |  Y  |
+| :-: | :-: | :-: |
+|  0  |  0  |  0  |
+|  1  |  0  |  0  |
+|  0  |  1  |  0  |
+|  1  |  1  |  1  |
 
 Our model has the following weights and network configuration:
 
@@ -83,14 +84,14 @@ NSLog(@"Model assessment is %f", assessment[0]);
 The following instructions describe how to setup and install `MLPNeuralNet` using [CocoaPods](http://cocoapods.org/). It is written for Xcode 5 and the iOS 7.x(+) SDK. If you are not familiar with CocoaPods, just clone the repository and import `MLPNeuralNet` directly as a subproject.
 
 ##Installing through CocoaPods
-Please add the following line to your *Podfile*.
+Please add the following line to your _Podfile_.
 
 ```
 pod 'MLPNeuralNet', '~> 1.0.0'
 ```
 
 ##Installing through Carthage
-Please add the following line to your *Cartfile*.
+Please add the following line to your _Cartfile_.
 
 ```
 github "nikolaypavlov/MLPNeuralNet" "master"
@@ -98,6 +99,7 @@ github "nikolaypavlov/MLPNeuralNet" "master"
 
 ##Import `MLPNeuralNet.h`
 Do not forget to add the following line to the top of your model:
+
 ```objectivec
 #import "MLPNeuralNet.h"
 ```
@@ -106,10 +108,11 @@ Do not forget to add the following line to the top of your model:
 Most of the popular libraries (including `MLPNeuralNet`) implicitly add biased units for each of the layers except the last one. Assuming these additional units, the total number of weights are `(X + 1) * Y + (Y + 1) * Z`.
 
 ##Importing weights from other libs.
-You can do this for *some* of the neural network packages available.
+You can do this for _some_ of the neural network packages available.
 
 ###R nnet library:
- ```r
+
+```r
 #Assuming nnet_model is a trained neural network
 nnet_model$wts
 ```
@@ -133,6 +136,7 @@ def getweights(net):
 ```
 
 ###Python neon
+
 ```python
 import numpy as np
 
@@ -149,7 +153,7 @@ def getweights(file_name):
     # Load a stored model file from disk (should have extension prm)
     params = pkl.load(open(file_name, 'r'))
     layers = layer_names(params)
-    
+
     for layer in layers:
         # Make sure our model has biases activated, otherwise add zeros here
         b = params[layer]['biases']
@@ -164,6 +168,7 @@ getweights(expanduser('~/data/workout-dl/workout-ep100.prm'))
 ```
 
 ###Python keras
+
 ```python
 import numpy as np
 
@@ -180,12 +185,13 @@ def get_weights_from_keras_model(model):
 ```
 
 ## Performance benchmarks
+
 In this test, the neural network has grown layer by layer from a `1 -> 1` configuration to a `200 -> 200 -> 200 -> 1` configuration. At each step, the output is calculated and benchmarked using random input vectorisation and weights. Total number of weights grow from 2 to 80601 accordingly. I understand that the test is quite synthetic, but I hope it illustrates the performance. I will be happy if you can propose a better one! :)
 
 ![MLPNeuralNet Performance Benchmark](http://nikolaypavlov.github.io/MLPNeuralNet/images/mlp-bench-regression-ios.png)
 
 ##Unit Testing
-`MLPNeuralNet` includes a diverse suite of unit tests in the `/MLPNeuralNetTests` subdirectory. You can execute them using the ``MLPNeuralNet`` scheme within Xcode.
+`MLPNeuralNet` includes a diverse suite of unit tests in the `/MLPNeuralNetTests` subdirectory. You can execute them using the `MLPNeuralNet` scheme within Xcode.
 
 ##Acknowledgements
 `MLPNeuralNet` was inspired by:
